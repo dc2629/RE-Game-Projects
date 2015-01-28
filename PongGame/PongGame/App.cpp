@@ -97,6 +97,7 @@ void App::Update(){
 
 	keys = SDL_GetKeyboardState(NULL);
 
+	//Entity X-Movement
 
 	//Ball motion and update
 	ball.x += ball.velocity_x*elapsed;
@@ -114,6 +115,8 @@ void App::Update(){
 			ball.velocity_x = -ball.velocity_x;
 		}
 	}
+
+	//Entity Y-Movement
 
 	ball.y += ball.velocity_y*elapsed;
 	//Paddle 1 motion
