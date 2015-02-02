@@ -215,6 +215,7 @@ void Entity::Draw() {
 		-width, height,
 		width, -height,
 		width, height };
+
 	glVertexPointer(2, GL_FLOAT, 0, quad);//Read 2, FLOAT VALUES, SKIP 0 values in case we put colors in the matrix, and quad is the pointer to the array.
 	glEnableClientState(GL_VERTEX_ARRAY);//allows for server to access the vertex arrays and for clients to draw the arrays.
 	glTexCoordPointer(2, GL_FLOAT, 0, quadUVs);//Defines an array of texture coordinates 
@@ -267,5 +268,5 @@ bool Entity::checkCollision(Entity A){
 }
 
 void Entity::resetCollisions(){
-
+	hasCollided = false;
 }

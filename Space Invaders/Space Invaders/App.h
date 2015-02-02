@@ -3,6 +3,8 @@
 #include<vector>
 
 #define RANDOM_NUMBER ((float)rand()/(float)RAND_MAX)
+#define FIXED_TIMESTEP 0.016667
+#define MAX_TIMESTEP 6
 
 class App{
 public:
@@ -14,24 +16,34 @@ public:
 	const Uint8 *keys;
 
 	void Init();//Sets up windows and entities
-	void Update();//Collision detection, movement, and polling input
+	void Update();//Animation and non-collision updates to entity
+	void FixedUpdate();//Collision Code
+	void UpdateandRender();
 	void Render();//Draws loaded images to screen
 	bool ProcessEvents();//Collects player event input.
 	
-	float elapsed, lastFrameTicks;
+	float elapsed, lastFrameTicks,timeLeftOver, actualElapsed, delay;
 
 	Entity player;
 	Entity backAlien;
-	Entity Alien1[10];
-	Entity Alien2[10];
-	Entity Alien3[10];
+	Entity Alien1[11];
+	Entity Alien2r1[11];
+	Entity Alien2r2[11];
+	Entity Alien3r1[11];
+	Entity Alien3r2[11];
+	Entity background;
 
-	vector<Entity*> Entities;
 	GLint playerTexture;
 	GLint Alien1texture;
 	GLint Alien2texture;
 	GLint Alien3texture;
-
+	GLint font;
+	
 
 	std::vector<Entity*> Entities;
+
+	bool AlienMovement;
+	float AlienMvtSpeedModifier;
+	float AlienAnimationTimer;
+
 };

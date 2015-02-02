@@ -36,4 +36,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="SpaceInvader1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SpaceInvaderAlien1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SpaceInvaderAlien2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SpaceInvaderAlien3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="font.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="spbackground.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

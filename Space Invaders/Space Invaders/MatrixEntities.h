@@ -59,6 +59,7 @@ public:
 	float rotation;
 
 	bool visible;
+	bool hasCollided;
 
 	float velocity_x;
 	float velocity_y;

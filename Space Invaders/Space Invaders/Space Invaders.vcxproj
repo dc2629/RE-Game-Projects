@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -88,6 +88,14 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="MatrixEntities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="font.png" />
+    <Image Include="SpaceInvader1.png" />
+    <Image Include="SpaceInvaderAlien1.png" />
+    <Image Include="SpaceInvaderAlien2.png" />
+    <Image Include="SpaceInvaderAlien3.png" />
+    <Image Include="spbackground.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
