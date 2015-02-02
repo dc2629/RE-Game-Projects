@@ -25,6 +25,7 @@ public:
 	float elapsed, lastFrameTicks,timeLeftOver, actualElapsed, delay;
 
 	Entity player;
+	Entity playerlives[3];
 	Entity backAlien;
 	Entity Alien1[11];
 	Entity Alien2r1[11];
@@ -46,4 +47,5 @@ public:
 	float AlienMvtSpeedModifier;
 	float AlienAnimationTimer;
 
+	int Score;
 };

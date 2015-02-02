@@ -72,14 +72,7 @@ bool checkCollision(Entity ball, Entity paddle){
 }
 
 App::App(){
-	Init();
-};
 
-App::~App(){
-
-};
-
-void App::Init(){
 	SDL_Init(SDL_INIT_VIDEO);//Initializes SDL
 	displayWindow = SDL_CreateWindow("Space Invaders", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);//Creates the window with OpenGL and the dimensions of the window.
 	SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
@@ -87,6 +80,16 @@ void App::Init(){
 	glViewport(0, 0, 800, 600);//The start of using OpenGL with the arguments as the resolution.
 	glMatrixMode(GL_PROJECTION);//Usually ran once and thats it.
 	glOrtho(-1.33, 1.33, -1, 1, -1, 1);//The ratio of resolutions
+
+	Init();
+
+};
+
+App::~App(){
+
+};
+
+void App::Init(){
 	
 	//Timer Initalizations
 	elapsed = 0.0f;
@@ -194,6 +197,17 @@ void App::Init(){
 	AlienMovement = false;
 	AlienMvtSpeedModifier = 0.06f;
 
+	//Player Lives
+	for (int i = 0; i < 3; i++){
+		playerlives[i].textureID = playerTexture;
+		playerlives[i].index = 0;
+		playerlives[i].spriteCountX = 2;
+		playerlives[i].spriteCountY = 1;
+		playerlives[i].width = .05333f;
+		playerlives[i].height = .03333f;
+		playerlives[i].y = -.95f;
+		playerlives[i].x = 0.9f + 0.13f*i;
+	}
 }
 
 bool App::ProcessEvents(){
@@ -212,7 +226,7 @@ void App::Update(){
 	AlienAnimationTimer += actualElapsed;
 
 	//Alien Animation
-	if (AlienAnimationTimer > (.4f)){
+	if (AlienAnimationTimer > (.45f)){
 		for (int i = 1; i < Entities.size(); i++){
 			Entities[i]->index++;
 			AlienAnimationTimer = 0.0f;
@@ -270,11 +284,24 @@ void App::FixedUpdate(){
 
 void App::Render(){
 	glClear(GL_COLOR_BUFFER_BIT);//Makes background default color
+
 	background.Render();
+
 	player.Render();
 
 	for (int i = 0; i < Entities.size(); i++){
 		Entities[i]->Render();
+	}
+	stringstream ScorenValue;
+	ScorenValue << "Score: " << Score;
+	string text = ScorenValue.str().c_str();
+	drawText(font, text, 0.1f, -0.05f, 1.0f, 0.0f, 0.0f, 1.0f, -1.15f, -.95f);
+
+	text = "Lives: ";
+
+	drawText(font, text, 0.1f, -0.05f, 0.0f, 1.0f, 0.0f, 1.0f, .55f, -.95f);
+	for (int i = 0; i < 3; i++){
+		playerlives[i].Render();
 	}
 
 
