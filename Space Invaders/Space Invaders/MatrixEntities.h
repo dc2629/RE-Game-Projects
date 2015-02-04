@@ -79,5 +79,9 @@ public:
 
 	void resetCollisions();
 	bool checkCollision(Entity A);
+
+	Color color;
+
+	friend class textEntity;
 };
 

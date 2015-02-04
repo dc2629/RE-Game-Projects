@@ -21,11 +21,12 @@ public:
 	void UpdateandRender();
 	void Render();//Draws loaded images to screen
 	bool ProcessEvents();//Collects player event input.
+	void GameOverRender();
+	void GameOverUpdate();
 	
 	float elapsed, lastFrameTicks,timeLeftOver, actualElapsed, delay;
-
+	//Entities
 	Entity player;
-	Entity playerlives[3];
 	Entity backAlien;
 	Entity Alien1[11];
 	Entity Alien2r1[11];
@@ -40,14 +41,22 @@ public:
 	GLint Alien3texture;
 	GLint font;
 	
-
 	std::vector<Entity*> Entities;
 
+	//Movement and Animation
 	bool AlienMovement;
 	float AlienMvtSpeedModifier;
 	float AlienAnimationTimer;
 	bool ShiftAliensDown;
 	bool RightorLeftSide;
+	bool backALienMvt;
 
+	//Interface
+	Entity playerlives[3];
 	int Score;
+
+	//Bullets
+	Entity playerbullet;//I don't know why but apparently there's only 1 bullet in space invader that can only be shot once it's out of the screen or invisible.
+	Entity AIbullets[7];
+
 };

@@ -7,10 +7,12 @@ void drawText(GLint fontTexture, string text, float size, float spacing, float r
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glPushMatrix();
 	glLoadIdentity();
 	glTranslatef(x, y, 0);
 	float texture_size = 1.0 / 16.0f;
+
 	vector<float> vertexData;
 	vector<float> texCoordData;
 	vector<float> colorData;
@@ -19,11 +21,18 @@ void drawText(GLint fontTexture, string text, float size, float spacing, float r
 		float texture_y = (float)(((int)text[i]) / 16) / 16.0f;
 
 		colorData.insert(colorData.end(), { r, g, b, a, r, g, b, a, r, g, b, a, r, g, b, a });
-		vertexData.insert(vertexData.end(), { ((size + spacing) * i) + (-0.5f * size), 0.5f * size, ((size + spacing) * i) +
-			(-0.5f * size), -0.5f * size, ((size + spacing) * i) + (0.5f * size), -0.5f * size, ((size + spacing) * i) + (0.5f * size), 0.5f
-			* size });
-		texCoordData.insert(texCoordData.end(), { texture_x, texture_y, texture_x, texture_y + texture_size, texture_x +
-			texture_size, texture_y + texture_size, texture_x + texture_size, texture_y });
+		vertexData.insert(vertexData.end(), {
+			((size + spacing) * i) + (-0.5f * size), 0.5f * size,
+			((size + spacing) * i) + (-0.5f * size), -0.5f * size,
+			((size + spacing) * i) + (0.5f * size), -0.5f * size,
+			((size + spacing) * i) + (0.5f * size), 0.5f * size });
+
+		texCoordData.insert(texCoordData.end(), {
+			texture_x, texture_y,
+			texture_x, texture_y + texture_size,
+			texture_x + texture_size, texture_y + texture_size,
+			texture_x + texture_size, texture_y });
+
 	}
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -122,6 +131,9 @@ void App::Init(){
 	backAlien.width = .08f;
 	backAlien.height = .05f;
 	backAlien.y = .90f;
+	backAlien.x = -2.5f;
+	backAlien.color.g = 0.0;
+	backAlien.color.b = 0.0;
 	Entities.push_back(&backAlien);
 
 	//Initialize all other Alien Entities
@@ -196,6 +208,7 @@ void App::Init(){
 	//Alien Movement
 	AlienMovement = false;
 	AlienMvtSpeedModifier = 0.06f;
+	backALienMvt = false;
 
 	//Player Lives
 	for (int i = 0; i < 3; i++){
@@ -208,6 +221,36 @@ void App::Init(){
 		playerlives[i].y = -.95f;
 		playerlives[i].x = 0.9f + 0.13f*i;
 	}
+
+	//Player bullets
+	playerbullet.textureID = 0; // Blank rectangle bullets
+	playerbullet.index = 0;
+	playerbullet.color.b = 0.0;
+	playerbullet.color.r = 0.0;
+	playerbullet.spriteCountX = 1;
+	playerbullet.spriteCountY = 1;
+	playerbullet.width = .0075f;
+	playerbullet.height = .02f;
+	playerbullet.velocity_y = 0.12f;
+	playerbullet.visible = false;
+
+	//Score
+	Score = 0;
+
+	//AI Bullets
+	for (int i = 0; i < 7; i++){
+		AIbullets[i].textureID = 0; // Blank rectangle bullets
+		AIbullets[i].index = 0;
+		AIbullets[i].color.r = 0.0;
+		AIbullets[i].spriteCountX = 1;
+		AIbullets[i].spriteCountY = 1;
+		AIbullets[i].width = .0075f;
+		AIbullets[i].height = .02f;
+		AIbullets[i].velocity_y = 0.04f;
+		AIbullets[i].visible = false;
+		AIbullets[i].y = RANDOM_NUMBER;
+	}
+
 }
 
 bool App::ProcessEvents(){
@@ -251,11 +294,11 @@ void App::Update(){
 		}
 	}
 	for (int i = 1; i < Entities.size(); i++){
-		if (Entities[i]->x > 1.25){
+		if (Entities[i]->x > 1.25 && Entities[i]->visible){
 			ShiftAliensDown = true;
 			RightorLeftSide = true;
 		}
-		else if (Entities[i]->x < -1.25){
+		else if (Entities[i]->x < -1.25 && Entities[i]->visible){
 			ShiftAliensDown = true;
 			RightorLeftSide = false;
 		}
@@ -279,21 +322,89 @@ void App::Update(){
 		}
 		AlienMovement = false;
 	}
-	
+
+	//Reset Movement
 	ShiftAliensDown = false;
-	
+
+	//BackAlien
+	if (!backALienMvt){
+		Entities[0]->x += (0.2f + AlienMvtSpeedModifier)*actualElapsed;
+	}
+	else{
+		Entities[0]->x -= (0.2f + AlienMvtSpeedModifier)*actualElapsed;
+	}
+
+	if (Entities[0]->x > 2.7 || Entities[0]->x < -2.7){
+		Entities[0]->visible = false;
+	}
+	if (!Entities[0]->visible){
+		Entities[0]->visible = true;
+		if (!backALienMvt){
+			Entities[0]->x = RANDOM_NUMBER * 2 + 1.4f;
+		}
+		else{
+			Entities[0]->x = -RANDOM_NUMBER * 2 - 1.4f;
+		}
+		backALienMvt = !backALienMvt;
+	}
 
 };
 
 void App::FixedUpdate(){
 	keys = SDL_GetKeyboardState(NULL);
+	//User Game Actions
 	if (keys[SDL_SCANCODE_RIGHT]){
 		player.x -= player.velocity_x*FIXED_TIMESTEP;
 	}
 	if (keys[SDL_SCANCODE_LEFT]){
 		player.x += player.velocity_x*FIXED_TIMESTEP;
 	}
+	if (keys[SDL_SCANCODE_SPACE]){
+		if (!playerbullet.visible){
+			playerbullet.visible = true;
+			playerbullet.x = player.x - .003;
+			playerbullet.y = player.y + 0.07f;
+		}
+	}
+	//Bullet movement
+	playerbullet.y += playerbullet.velocity_y*FIXED_TIMESTEP;
+	if (playerbullet.y > 1.1){
+		playerbullet.visible = false;
+	}
 
+	//Collision
+	for (int i = 0; i < Entities.size(); i++){
+		if (1/*abs(Entities[i]->y - playerbullet.y) < .3f && abs(Entities[i]->x - playerbullet.x) < .3f*/){
+			if (Entities[i]->visible){
+				if (playerbullet.checkCollision(*Entities[i]) && Entities[i]->checkCollision(playerbullet)){
+					Entities[i]->visible = false;
+					playerbullet.visible = false;
+					if (i > 1)
+						Score += 100;
+					else
+						Score += 500;
+				}
+			}
+		}
+	}
+
+	//Player to wall Collision
+	if (player.x > 1.25){
+		player.x = 1.25;
+	}
+	else if (player.x < -1.25) {
+		player.x = -1.25;
+	}
+
+	//AI Bullets
+	for (int i = 0; i < 7; i++){
+		AIbullets[i].y -= AIbullets[i].velocity_y*FIXED_TIMESTEP;
+		if (AIbullets[i].y < -1.2){
+				AIbullets[i].x = Entities[1]->x;
+				AIbullets[i].y = Entities[1]->y - 0.03;
+				AIbullets[i].visible;
+		}
+	}
 }
 
 void App::Render(){
@@ -304,7 +415,9 @@ void App::Render(){
 	player.Render();
 
 	for (int i = 0; i < Entities.size(); i++){
-		Entities[i]->Render();
+		if (Entities[i]->visible){
+			Entities[i]->Render();
+		}
 	}
 	stringstream ScorenValue;
 	ScorenValue << "Score: " << Score;
@@ -316,6 +429,15 @@ void App::Render(){
 	drawText(font, text, 0.1f, -0.05f, 0.0f, 1.0f, 0.0f, 1.0f, .55f, -.95f);
 	for (int i = 0; i < 3; i++){
 		playerlives[i].Render();
+	}
+	if (playerbullet.visible){
+		playerbullet.Render();
+	}
+	//AI Bullets
+	for (int i = 0; i < 7; i++){
+		if (AIbullets[i].visible){
+			AIbullets[i].Render();
+		}
 	}
 
 	SDL_GL_SwapWindow(displayWindow);

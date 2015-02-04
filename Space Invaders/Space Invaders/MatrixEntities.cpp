@@ -157,6 +157,12 @@ Entity::Entity(){
 	scale_y = 1.0f;
 	rotation = 0.0f;
 	visible = true;
+
+	color.r = 1.0f;
+	color.g = 1.0f;
+	color.b = 1.0f;
+	color.a = 1.0f;
+	
 };
 
 void Entity::buildMatrix(){
@@ -202,19 +208,33 @@ void Entity::Draw() {
 	float spriteWidth = 1.0f / (float)spriteCountX;
 	float spriteHeight = 1.0f / (float)spriteCountY;
 
-	GLfloat quadUVs[] = { u, v,
+	GLfloat quadUVs[] = { 
+		u, v,
 		u, v + (spriteHeight),
 		u + spriteWidth, v + (spriteHeight),
 		u, v,
 		u + spriteWidth, v + (spriteHeight),
 		u + spriteWidth, v
 	};
-	GLfloat quad[] = { -width, height,
+	GLfloat quad[] = { 
+		-width, height,
 		-width, -height,
 		width, -height,
 		-width, height,
 		width, -height,
 		width, height };
+
+	//Color Addition
+	glEnableClientState(GL_COLOR_ARRAY);
+	GLfloat cArray[] = { 
+		color.r, color.g, color.b, color.a, 
+		color.r, color.g, color.b, color.a,
+		color.r, color.g, color.b, color.a,
+		color.r, color.g, color.b, color.a,
+		color.r, color.g, color.b, color.a,
+		color.r, color.g, color.b, color.a
+	};
+	glColorPointer(4, GL_FLOAT, 0, cArray);
 
 	glVertexPointer(2, GL_FLOAT, 0, quad);//Read 2, FLOAT VALUES, SKIP 0 values in case we put colors in the matrix, and quad is the pointer to the array.
 	glEnableClientState(GL_VERTEX_ARRAY);//allows for server to access the vertex arrays and for clients to draw the arrays.
@@ -228,6 +248,7 @@ void Entity::Draw() {
 	glDisable(GL_TEXTURE_2D);//Disable the texture since OpenGl won't use the same texture when redrawing other quads.
 	glDisable(GL_BLEND);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
 
 }
 
