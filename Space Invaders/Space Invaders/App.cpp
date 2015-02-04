@@ -304,7 +304,6 @@ void App::Render(){
 		playerlives[i].Render();
 	}
 
-
 	SDL_GL_SwapWindow(displayWindow);
 };
 
