@@ -90,7 +90,7 @@ App::~App(){
 };
 
 void App::Init(){
-	
+
 	//Timer Initalizations
 	elapsed = 0.0f;
 	lastFrameTicks = 0.0f;
@@ -250,7 +250,18 @@ void App::Update(){
 			Entities[i]->x -= AlienMvtSpeedModifier*actualElapsed;
 		}
 	}
-	if (Entities[11]->x > 1.25){
+	for (int i = 1; i < Entities.size(); i++){
+		if (Entities[i]->x > 1.25){
+			ShiftAliensDown = true;
+			RightorLeftSide = true;
+		}
+		else if (Entities[i]->x < -1.25){
+			ShiftAliensDown = true;
+			RightorLeftSide = false;
+		}
+	}
+
+	if (ShiftAliensDown && RightorLeftSide){
 		for (int i = 1; i < Entities.size(); i++){
 			Entities[i]->y -= 0.05f;
 		}
@@ -259,7 +270,7 @@ void App::Update(){
 		}
 		AlienMovement = true;
 	}
-	else if (Entities[1]->x < -1.25){
+	else if (ShiftAliensDown && !RightorLeftSide){
 		for (int i = 1; i < Entities.size(); i++){
 			Entities[i]->y -= 0.05f;
 		}
@@ -268,7 +279,9 @@ void App::Update(){
 		}
 		AlienMovement = false;
 	}
-
+	
+	ShiftAliensDown = false;
+	
 
 };
 
@@ -280,6 +293,7 @@ void App::FixedUpdate(){
 	if (keys[SDL_SCANCODE_LEFT]){
 		player.x += player.velocity_x*FIXED_TIMESTEP;
 	}
+
 }
 
 void App::Render(){

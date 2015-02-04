@@ -1,11 +1,7 @@
-﻿Build started 1/28/2015 5:37:35 PM.
+﻿Build started 1/28/2015 5:48:27 PM.
      1>Project "C:\Users\Daniel Chang\Source\Repos\RE-Game-Projects\PongGame\PongGame\PongGame.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\MicroSD\F Drive\Visual Studios\VC\bin\CL.exe /c /IC:\SDL2_mixer\include /IC:\SDL2\include /IC:\SDL2_image\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt App.cpp Entity.cpp Source.cpp
-         Source.cpp
-         Entity.cpp
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\entity.cpp(8): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\entity.cpp(9): warning C4305: '=' : truncation from 'double' to 'float'
+         C:\MicroSD\F Drive\Visual Studios\VC\bin\CL.exe /c /IC:\SDL2_mixer\include /IC:\SDL2\include /IC:\SDL2_image\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt App.cpp
          App.cpp
      1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(57): warning C4305: '=' : truncation from 'double' to 'float'
      1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(60): warning C4305: '=' : truncation from 'double' to 'float'
@@ -16,18 +12,17 @@
      1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(71): warning C4305: '=' : truncation from 'double' to 'float'
      1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(77): warning C4305: '=' : truncation from 'double' to 'float'
      1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(78): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(107): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(113): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(154): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(158): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(163): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(108): warning C4305: '+=' : truncation from 'double' to 'float'
+     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(114): warning C4305: '-=' : truncation from 'double' to 'float'
+     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(157): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(161): warning C4305: '=' : truncation from 'double' to 'float'
      1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(166): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(170): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(169): warning C4305: '=' : truncation from 'double' to 'float'
      1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(173): warning C4305: '=' : truncation from 'double' to 'float'
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(180): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(181): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(199): warning C4018: '<' : signed/unsigned mismatch
-         Generating Code...
+     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(176): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(183): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(184): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\daniel chang\source\repos\re-game-projects\ponggame\ponggame\app.cpp(202): warning C4018: '<' : signed/unsigned mismatch
        Link:
          C:\MicroSD\F Drive\Visual Studios\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Daniel Chang\Source\Repos\RE-Game-Projects\PongGame\Debug\PongGame.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\SDL2\lib\x86 /LIBPATH:C:\SDL2_mixer\lib\x86 /LIBPATH:C:\SDL2_image\lib\x86 SDL2.lib SDL2main.lib SDL2_image.lib OpenGL32.lib SDL2_mixer.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Daniel Chang\Source\Repos\RE-Game-Projects\PongGame\Debug\PongGame.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Daniel Chang\Source\Repos\RE-Game-Projects\PongGame\Debug\PongGame.lib" /MACHINE:X86 Debug\App.obj
          Debug\Entity.obj
@@ -38,4 +33,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:13.11
+Time Elapsed 00:00:08.73

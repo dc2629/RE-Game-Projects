@@ -46,6 +46,8 @@ public:
 	bool AlienMovement;
 	float AlienMvtSpeedModifier;
 	float AlienAnimationTimer;
+	bool ShiftAliensDown;
+	bool RightorLeftSide;
 
 	int Score;
 };
