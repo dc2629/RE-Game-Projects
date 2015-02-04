@@ -15,6 +15,8 @@ public:
 	SDL_Window *displayWindow;
 	const Uint8 *keys;
 
+	enum GameState { STATE_MAIN_MENU, STATE_SETTING, STATE_GAME_LEVEL, STATE_GAME_OVER };
+
 	void Init();//Sets up windows and entities
 	void Update();//Animation and non-collision updates to entity
 	void FixedUpdate();//Collision Code

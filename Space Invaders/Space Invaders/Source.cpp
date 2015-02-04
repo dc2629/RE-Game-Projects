@@ -4,9 +4,9 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
-	App hi;
-	while (!hi.ProcessEvents()){
-		hi.UpdateandRender();
+	App SpaceInvaderApp;
+	while (!SpaceInvaderApp.ProcessEvents()){
+		SpaceInvaderApp.UpdateandRender();
 	}
 
 	return 0;
