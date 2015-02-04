@@ -210,8 +210,12 @@ void App::Init(){
 	AlienMvtSpeedModifier = 0.06f;
 	backALienMvt = false;
 
+	//Score
+	Score = 0;
+	health = 3;
+
 	//Player Lives
-	for (int i = 0; i < 3; i++){
+	for (int i = 0; i < health; i++){
 		playerlives[i].textureID = playerTexture;
 		playerlives[i].index = 0;
 		playerlives[i].spriteCountX = 2;
@@ -231,11 +235,8 @@ void App::Init(){
 	playerbullet.spriteCountY = 1;
 	playerbullet.width = .0075f;
 	playerbullet.height = .02f;
-	playerbullet.velocity_y = 0.12f;
+	playerbullet.velocity_y = 0.07f;
 	playerbullet.visible = false;
-
-	//Score
-	Score = 0;
 
 	//AI Bullets
 	for (int i = 0; i < 7; i++){
@@ -246,7 +247,7 @@ void App::Init(){
 		AIbullets[i].spriteCountY = 1;
 		AIbullets[i].width = .0075f;
 		AIbullets[i].height = .02f;
-		AIbullets[i].velocity_y = 0.04f;
+		AIbullets[i].velocity_y = 0.01f;
 		AIbullets[i].visible = false;
 		AIbullets[i].y = RANDOM_NUMBER;
 	}
@@ -374,7 +375,6 @@ void App::FixedUpdate(){
 
 	//Collision
 	for (int i = 0; i < Entities.size(); i++){
-		if (1/*abs(Entities[i]->y - playerbullet.y) < .3f && abs(Entities[i]->x - playerbullet.x) < .3f*/){
 			if (Entities[i]->visible){
 				if (playerbullet.checkCollision(*Entities[i]) && Entities[i]->checkCollision(playerbullet)){
 					Entities[i]->visible = false;
@@ -385,7 +385,6 @@ void App::FixedUpdate(){
 						Score += 500;
 				}
 			}
-		}
 	}
 
 	//Player to wall Collision
@@ -400,11 +399,20 @@ void App::FixedUpdate(){
 	for (int i = 0; i < 7; i++){
 		AIbullets[i].y -= AIbullets[i].velocity_y*FIXED_TIMESTEP;
 		if (AIbullets[i].y < -1.2){
-				AIbullets[i].x = Entities[1]->x;
-				AIbullets[i].y = Entities[1]->y - 0.03;
-				AIbullets[i].visible;
+				AIbullets[i].x = Entities[randomAIfinder()]->x;
+				AIbullets[i].y = Entities[randomAIfinder()]->y - 0.03;
+				AIbullets[i].visible = true;
+		}
+		if (AIbullets[i].visible && AIbullets[i].checkCollision(player) && player.checkCollision(AIbullets[i])){
+			player.hasCollided = true;
+			AIbullets[i].visible = false;
 		}
 	}
+	if (player.hasCollided){
+		health--;
+		playerlives[health].visible = false;
+	}
+	player.resetCollisions();
 }
 
 void App::Render(){
@@ -428,7 +436,8 @@ void App::Render(){
 
 	drawText(font, text, 0.1f, -0.05f, 0.0f, 1.0f, 0.0f, 1.0f, .55f, -.95f);
 	for (int i = 0; i < 3; i++){
-		playerlives[i].Render();
+		if (playerlives[i].visible)
+			playerlives[i].Render();
 	}
 	if (playerbullet.visible){
 		playerbullet.Render();
@@ -462,4 +471,14 @@ void App::UpdateandRender(){
 	Render();
 
 	player.resetCollisions();
+}
+
+int App::randomAIfinder(){
+	vector<int> jackpot;
+	for (int i = 0; i < Entities.size(); i++){
+		if (Entities[i]->visible){
+			jackpot.push_back(i);
+		}
+	}
+	return jackpot[rand() % (jackpot.size())];
 }

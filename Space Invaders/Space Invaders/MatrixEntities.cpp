@@ -261,6 +261,10 @@ void iMatrixToVec(Entity A, Vector& C){
 bool Entity::checkCollision(Entity A){
 	Vector tRight, tLeft, bRight, bLeft;
 
+	if (fabs(x - A.x) > 0.5f || fabs(y - A.y) > 0.5f){
+		return false;
+	}
+
 	tRight.x = A.x + A.width / 2;
 	tRight.y = A.y + A.height / 2;
 	iMatrixToVec(*this, tRight);

@@ -58,5 +58,6 @@ public:
 	//Bullets
 	Entity playerbullet;//I don't know why but apparently there's only 1 bullet in space invader that can only be shot once it's out of the screen or invisible.
 	Entity AIbullets[7];
-
+	int randomAIfinder();
+	int health;
 };
